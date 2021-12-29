@@ -11,7 +11,7 @@
 //导入jsonwebtoken包,生成Token
 const jwt = require('jsonwebtoken');
 const config = require('../config');
-//导入bcryptjs
+//导入bcryptjs，验证表单
 const bcrypt = require('bcryptjs');
 
 //导入数据库操作模块

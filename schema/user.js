@@ -23,10 +23,7 @@ const joi = require('joi');
 // 用户名的验证规则
 const username = joi.string().alphanum().min(1).max(10).required();
 // 密码的验证规则
-const password = joi
-    .string()
-    .pattern(/^[\S]{6,12}$/)
-    .required();
+const password = joi.string().pattern(/^[\S]{6,12}$/).required();
 
 // 注册和登录表单的验证规则对象
 exports.reg_login_schema = {
@@ -43,8 +40,25 @@ const email = joi.string().email().required();
 
 exports.update_userinfo_schema = {
     body: {
-
         nickname,
         email,
+    }
+}
+
+//************************************-新旧密码验证-********************************************
+exports.update_password_schema = {
+    body: {
+        oldPwd: password,
+        newPwd: joi.not(joi.ref('oldPwd')).concat(password),
+    }
+}
+
+//************************************-头像路径格式验证-****************************************
+// dataUri() 指的是如下格式的字符串数据：
+// data:image/png;base64,VE9PTUFOWVNFQ1JFVFM=
+const avatar = joi.string().dataUri().required();
+exports.update_avatar_schema = {
+    body: {
+        avatar,
     }
 }
